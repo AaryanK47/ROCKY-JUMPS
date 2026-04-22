@@ -8,14 +8,14 @@ const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
 
 // Original Flappy Bird approximate physics & mechanics
-const GRAVITY = 0.4;
-const FLAP_SPEED = -7.5; 
-const PIPE_SPEED = 3.5;  
+const GRAVITY = 0.20;     // slower falling
+const FLAP_SPEED = -6.5;  // slightly strong jump
+const PIPE_SPEED = 2.2;   // slower pipes 
 const PIPE_WIDTH = 64;
 const PIPE_CAP_HEIGHT = 28;
 const PIPE_CAP_WIDTH = 70;
-const PIPE_GAP = 140;     
-const PIPE_SPACING = 210; 
+const PIPE_GAP = 170;     // bigger gap = easier
+const PIPE_SPACING = 260; // more distance between pipes 
 const GROUND_HEIGHT = 112; 
 
 let bird = {};
@@ -189,12 +189,13 @@ function updateGame(timestamp) {
     lastTime = timestamp;
 
     // Normalizes movement around a standard 60fps refresh rate (16.66ms per frame)
-    const timeScale = dt / 16.666; 
+    const timeScale = Math.min(dt / 16.666, 1.05);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Apply Physics with time-scale for perfectly smooth velocity
     bird.velocity += GRAVITY * timeScale;
+    bird.velocity = Math.min(bird.velocity, 5.5);
     // Add velocity with timescale applied
     bird.y += bird.velocity * timeScale;
 
