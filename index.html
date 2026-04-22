@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="score-board">
+            <span id="scoreDisplay">0</span>
+        </div>
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+        <div id="startScreen" class="overlay">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/0a/Flappy_Bird_icon.png"
+                style="width: 80px; border-radius: 16px; margin-bottom: 20px; outline: 3px solid #000;">
+            <h1 class="title">GET READY!</h1>
+            <p class="subtitle">Press Space or Click to Flap</p>
+            <button id="startBtn" class="button">Start Game</button>
+        </div>
+
+        <div id="gameOverScreen" class="overlay hidden">
+            <h1 class="title" style="font-size: 3.5rem; color: #E4661D;">GAME OVER</h1>
+            <div class="score-card">
+                <p>SCORE</p>
+                <h2 id="finalScore">0</h2>
+            </div>
+            <button id="restartBtn" class="button">OK</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

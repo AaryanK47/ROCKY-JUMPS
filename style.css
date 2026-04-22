@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'VT323', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222;
+    overflow: hidden;
+}
+
+.game-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background-color: #4EC0CA; /* Original Flappy Sky Blue */
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    border: 4px solid #000; /* Arcade border */
+}
+
+.score-board {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+#scoreDisplay {
+    font-size: 5rem;
+    color: #FFF;
+    text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 0 #000;
+    display: inline-block;
+    line-height: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    transition: opacity 0.2s ease;
+}
+
+.overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.title {
+    font-size: 4rem;
+    color: #FFF;
+    text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 0 #000;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 1;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #FFF;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 40px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+}
+
+.score-card {
+    background-color: #DED895;
+    border: 3px solid #000;
+    padding: 20px 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    box-shadow: inset -3px -3px 0 rgba(0,0,0,0.2), 0 4px 0 #000;
+}
+
+.score-card p {
+    color: #F0604A;
+    font-size: 1.5rem;
+    font-family: Arial, sans-serif;
+    font-weight: 900;
+    text-shadow: 1px 1px 0 #FFF;
+    margin-bottom: 5px;
+}
+
+.score-card h2 {
+    font-size: 3rem;
+    color: #FFF;
+    text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+.button {
+    padding: 12px 36px;
+    font-size: 1.8rem;
+    font-family: inherit;
+    color: #FFF;
+    background-color: #E4661D;
+    border: 3px solid #FFF;
+    outline: 3px solid #000;
+    cursor: pointer;
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,0.2), 0 4px 0 #000;
+    text-transform: uppercase;
+    transition: transform 0.1s;
+}
+
+.button:active {
+    transform: translateY(4px);
+    box-shadow: inset -4px -4px 0 rgba(0,0,0,0.2), 0 0 0 #000;
+}
