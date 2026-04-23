@@ -14,14 +14,14 @@ const flapSound = new Audio("flap.mp3");
 const hitSound = new Audio("hit.mp3");
 
 // Original Flappy Bird approximate physics & mechanics
-const GRAVITY = 0.20;     // slower falling
-const FLAP_SPEED = -6.5;  // slightly strong jump
-const PIPE_SPEED = 2.2;   // slower pipes 
+const GRAVITY = 0.25;
+const FLAP_SPEED = -6.8;
+const PIPE_SPEED = 2.8;   // slower pipes 
 const PIPE_WIDTH = 64;
 const PIPE_CAP_HEIGHT = 28;
 const PIPE_CAP_WIDTH = 70;
-const PIPE_GAP = 170;     // bigger gap = easier
-const PIPE_SPACING = 260; // more distance between pipes 
+const PIPE_GAP = 200;
+const PIPE_SPACING = 220; // more distance between pipes 
 const GROUND_HEIGHT = 112; 
 
 let bird = {};
@@ -36,7 +36,7 @@ function init() {
     bird = {
         x: 100,
         y: canvas.height / 2,
-        radius: 20,
+        radius: 14,
         velocity: 0,
         rotation: 0
     };
@@ -151,14 +151,13 @@ function updateGame(timestamp) {
     lastTime = timestamp;
 
     // Normalizes movement around a standard 60fps refresh rate (16.66ms per frame)
-    const timeScale = Math.min(dt / 16.666, 1.05);
+    const timeScale = Math.min(dt / 16.666, 1.1);
 
     ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height*1.5);
 
     // Apply Physics with time-scale for perfectly smooth velocity
     bird.velocity += GRAVITY * timeScale;
-    bird.velocity = Math.min(bird.velocity, 5.5);
-    // Add velocity with timescale applied
+    bird.velocity = Math.min(bird.velocity, 7);    // Add velocity with timescale applied
     bird.y += bird.velocity * timeScale;
 
     // Smoother Interpolated Rotation handling
