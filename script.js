@@ -6,6 +6,12 @@ const gameOverScreen = document.getElementById('gameOverScreen');
 const finalScore = document.getElementById('finalScore');
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
+const birdImg = new Image();
+birdImg.src = "bird.png"; // change name if needed
+const bgImg = new Image();
+bgImg.src = "background.jpg"; // change name if needed
+const flapSound = new Audio("flap.mp3");
+const hitSound = new Audio("hit.mp3");
 
 // Original Flappy Bird approximate physics & mechanics
 const GRAVITY = 0.20;     // slower falling
@@ -30,7 +36,7 @@ function init() {
     bird = {
         x: 100,
         y: canvas.height / 2,
-        radius: 14,
+        radius: 20,
         velocity: 0,
         rotation: 0
     };
@@ -55,54 +61,10 @@ function createPipe(xPos) {
 
 function drawBird(x, y, rotation) {
     ctx.save();
-    // Using floats for x, y allows perfectly smooth rendering across frame ticks
     ctx.translate(x, y);
     ctx.rotate(rotation);
-    
-    // Body (yellow)
-    ctx.fillStyle = '#F3B32A';
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 18, 13, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
 
-    // Wing (white)
-    ctx.fillStyle = '#FFF';
-    ctx.beginPath();
-    ctx.ellipse(-6, 3, 8, 5, 0.2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-
-    // Eye (white)
-    ctx.fillStyle = '#FFF';
-    ctx.beginPath();
-    ctx.arc(8, -5, 5, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-    
-    // Pupil
-    ctx.fillStyle = '#000';
-    ctx.beginPath();
-    ctx.arc(10, -5, 2, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Beak (orange-red)
-    ctx.fillStyle = '#F0604A';
-    ctx.beginPath();
-    ctx.moveTo(14, 0);
-    ctx.lineTo(26, 2);
-    ctx.lineTo(14, 8);
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    
-    // Upper beak split line
-    ctx.beginPath();
-    ctx.moveTo(14, 2);
-    ctx.lineTo(25, 2);
-    ctx.stroke();
+    ctx.drawImage(birdImg, -35, -35, 70, 70); // bigger bird
 
     ctx.restore();
 }
@@ -191,7 +153,7 @@ function updateGame(timestamp) {
     // Normalizes movement around a standard 60fps refresh rate (16.66ms per frame)
     const timeScale = Math.min(dt / 16.666, 1.05);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height*1.5);
 
     // Apply Physics with time-scale for perfectly smooth velocity
     bird.velocity += GRAVITY * timeScale;
@@ -263,6 +225,9 @@ function updateGame(timestamp) {
 function flap() {
     if (!gameRunning) return;
     bird.velocity = FLAP_SPEED;
+
+    flapSound.currentTime = 0; // allows rapid replay
+    flapSound.play();
 }
 
 function startGame() {
@@ -276,6 +241,10 @@ function startGame() {
 
 function gameOver() {
     gameRunning = false;
+
+    hitSound.currentTime = 0;
+    hitSound.play();
+
     finalScore.innerText = score;
     gameOverScreen.classList.remove('hidden');
 }
